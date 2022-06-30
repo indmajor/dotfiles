@@ -52,7 +52,8 @@
         (?m "\\texttt" nil t nil nil)
         (?t "\\text" nil t nil nil)))
 (setq cdlatex-math-symbol-alist
-'((?. ("\\cdot" "\\dots" nil nil))))
+'((?. ("\\cdot" "\\dots" nil nil))
+  (?. ("\\cdot" "\\dots" nil nil))))
 
 (after! org
   (define-key org-mode-map (kbd "s-i")
@@ -70,8 +71,8 @@
 (add-hook 'org-mode-hook 'org-fragtog-mode)
 
 (sp-pair "\\\(" "\\\)" :trigger "dd")
-(sp-pair "\\\left(" "\\\right)" :trigger "lrc")
-(sp-pair "\\\left[" "\\\right]" :trigger "lrs")
+(sp-pair "\\\left(" " \\right)" :trigger "lrc")
+(sp-pair "\\\left[" " \\right]" :trigger "lrs")
 ;; (sp-pair "[" "]")
 ;; (sp-pair "(" ")")
 ;; (sp-pair "|" "|")
@@ -94,3 +95,5 @@
 %x" :empty-lines 1)))
 
 (use-package! org-ref)
+
+(setq! citar-bibliography '("~/Dropbox/org/library.bib"))
