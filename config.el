@@ -5,9 +5,13 @@
 
 (setq doom-theme 'doom-one)
 
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type t
+      evil-want-fine-undo t)
 
 (setq org-directory "~/Dropbox/org/")
+
+(display-battery-mode 1)
+(global-subword-mode 1) ; Iterate through CamelCase
 
 (after! ispell
   (with-eval-after-load "ispell"
@@ -53,7 +57,8 @@
         (?t "\\text" nil t nil nil)))
 (setq cdlatex-math-symbol-alist
 '((?. ("\\cdot" "\\dots" nil nil))
-  (?. ("\\cdot" "\\dots" nil nil))))
+  (?. ("\\cdot" "\\dots" nil nil))
+  (?~ ("\\sim" "\\approx" "\\sim"))))
 
 (after! org
   (define-key org-mode-map (kbd "s-i")
@@ -73,10 +78,6 @@
 (sp-pair "\\\(" "\\\)" :trigger "dd")
 (sp-pair "\\\left(" " \\right)" :trigger "lrc")
 (sp-pair "\\\left[" " \\right]" :trigger "lrs")
-;; (sp-pair "[" "]")
-;; (sp-pair "(" ")")
-;; (sp-pair "|" "|")
-;; (sp-pair "\\\{" "\\\}")
 
 (after! evil-surround
   (let ((pairs '((?m "\\\(" . "\\\) "))))
@@ -97,3 +98,11 @@
 (use-package! org-ref)
 
 (setq! citar-bibliography '("~/Dropbox/org/library.bib"))
+
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (consult-buffer))
+
+(setq +latex-viewers '(pdf-tools))
